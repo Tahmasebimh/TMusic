@@ -1,6 +1,7 @@
-package com.example.hossein.tmusic;
+package com.example.hossein.tmusic.view;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -14,9 +15,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.hossein.tmusic.R;
 import com.google.android.material.tabs.TabLayout;
 
-public class MusicListPagerActivity extends AppCompatActivity implements AllMusicListFragment.OnFragmentInteractionListener {
+public class MusicListPagerActivity extends AppCompatActivity implements AllMusicListFragment.OnFragmentInteractionListener
+ , ArtistListFragment.OnFragmentInteractionListener{
 
     private static final int REQ_CODE_READ_EXTERNAL = 0 ;
     TabLayout mTabLayout;
@@ -43,6 +46,8 @@ public class MusicListPagerActivity extends AppCompatActivity implements AllMusi
                 switch (position){
                     case 0 : {
                         return AllMusicListFragment.newInstance();
+                    }case 1: {
+                        return ArtistListFragment.newInstance();
                     }default:
                         return AllMusicListFragment.newInstance();
                 }
@@ -52,7 +57,25 @@ public class MusicListPagerActivity extends AppCompatActivity implements AllMusi
             public int getCount() {
                 return 3;
             }
+
+            @Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+
+                switch (position){
+                    case 0 :{
+                        return getResources().getString(R.string.tab_all_music);
+                    }case 1 :{
+                        return getResources().getString(R.string.tab_artist);
+                    }case 2 : {
+                        return getResources().getString(R.string.tab_album);
+                    }default:
+                        return super.getPageTitle(position);
+                }
+            }
         });
+
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override

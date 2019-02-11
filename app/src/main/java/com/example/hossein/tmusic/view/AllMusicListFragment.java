@@ -1,11 +1,9 @@
-package com.example.hossein.tmusic;
+package com.example.hossein.tmusic.view;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -21,18 +19,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.hossein.tmusic.R;
 import com.example.hossein.tmusic.model.Song;
-import com.example.hossein.tmusic.utils.PictureUtils;
 import com.squareup.picasso.Picasso;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 
@@ -66,7 +58,7 @@ public class AllMusicListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_all_music_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_music_list, container, false);
         ArrayList<Song> songArrayList = getSongList();
         Log.d(TAG_DEBUG_LIST , songArrayList.size() + "");
 
@@ -121,7 +113,7 @@ public class AllMusicListFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
+        }else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }

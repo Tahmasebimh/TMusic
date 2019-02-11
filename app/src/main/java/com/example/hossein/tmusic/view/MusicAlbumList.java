@@ -1,4 +1,4 @@
-package com.example.hossein.tmusic;
+package com.example.hossein.tmusic.view;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,18 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.hossein.tmusic.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ArtistListFragment.OnFragmentInteractionListener} interface
+ * {@link MusicAlbumList.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class ArtistListFragment extends Fragment {
+public class MusicAlbumList extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ArtistListFragment() {
+    public MusicAlbumList() {
         // Required empty public constructor
     }
 
@@ -30,7 +31,7 @@ public class ArtistListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_artist_list, container, false);
+        return inflater.inflate(R.layout.fragment_music_album_list, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
