@@ -132,22 +132,16 @@ public class MusicAlbumList extends Fragment {
         }
 
         public void bind(Album album) {
-            mTextViewAlbumTitle.setText(album.getAlbumTitle());
-            mTextViewAlbumArtist.setText(album.getAlbumArtsit());
             try {
-                if(album.getAlbumCoverUri() != null)
                     Picasso.get().load(album.getAlbumCoverUri()).centerCrop()
                             .resize(mImageView.getWidth() , mImageView.getHeight())
                             .placeholder(R.drawable.music_deffault_icon)
                             .into(mImageView);
-                else {
-                    Picasso.get().load(R.drawable.ic_launcher_background)
-                            .resize(100 , 100)
-                            .into(mImageView);
-                }
             }catch (Exception e){
                 Log.i(TAG_DEBUG_LIST , e.getMessage());
             }
+            mTextViewAlbumTitle.setText(album.getAlbumTitle());
+            mTextViewAlbumArtist.setText(album.getAlbumArtsit());
         }
     }
 

@@ -131,7 +131,8 @@ public class ArtistListFragment extends Fragment {
 
         public void bind(Artist artist) {
             mTextViewArtistName.setText(artist.getArtsitName());
-           // mTextViewMusicName.setText(artist.getArtistSongList().size());
+            mTextViewMusicName.setText(SongLab.getInstance().getArtistSongsCount(artist.getArtistId()) + " songs");
+            //SongLab.getInstance().getLastArtistCoverUri(artist.getArtistId())
             try {
                 if(artist.getUriSongCover() != null)
                     Picasso.get().load(artist.getUriSongCover()).centerCrop()

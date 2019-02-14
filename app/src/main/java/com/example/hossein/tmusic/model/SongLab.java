@@ -138,5 +138,13 @@ public class SongLab {
         }
         return mArtistSongs;
     }
+    public Uri getLastArtistCoverUri(Long artistId){
+        ArrayList<Song> songs = getArtistSong(artistId);
+        return songs.get(songs.size() - 1).getUriAlbumPhoto();
+    }
 
+    public int getArtistSongsCount(Long artistId){
+        ArrayList<Song> songs = getArtistSong(artistId);
+        return songs.size();
+    }
 }
