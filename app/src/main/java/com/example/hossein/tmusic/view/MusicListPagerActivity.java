@@ -19,7 +19,7 @@ import com.example.hossein.tmusic.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class MusicListPagerActivity extends AppCompatActivity implements AllMusicListFragment.OnFragmentInteractionListener
- , ArtistListFragment.OnFragmentInteractionListener{
+ , ArtistListFragment.OnFragmentInteractionListener , MusicAlbumList.OnFragmentInteractionListener{
 
     private static final int REQ_CODE_READ_EXTERNAL = 0 ;
     TabLayout mTabLayout;
@@ -43,13 +43,17 @@ public class MusicListPagerActivity extends AppCompatActivity implements AllMusi
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                switch (position){
-                    case 0 : {
+                switch (position) {
+                    case 0: {
                         return AllMusicListFragment.newInstance();
-                    }case 1: {
+                    }
+                    case 1: {
                         return ArtistListFragment.newInstance();
+                    }
+                    case 2: {
+                        return MusicAlbumList.newInstance();
                     }default:
-                        return AllMusicListFragment.newInstance();
+                        return null;
                 }
             }
 

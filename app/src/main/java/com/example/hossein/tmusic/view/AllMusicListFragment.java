@@ -127,6 +127,7 @@ public class AllMusicListFragment extends Fragment {
                 if(song.getUriAlbumPhoto() != null)
                 Picasso.get().load(song.getUriAlbumPhoto()).centerCrop()
                         .resize(200 , 200)
+                        .placeholder(R.drawable.music_deffault_icon)
                         .into(mImageViewSongCover);
                 else {
                     Picasso.get().load(R.drawable.ic_launcher_background).into(mImageViewSongCover);

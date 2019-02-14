@@ -43,9 +43,7 @@ public class SongLab {
             Uri songUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
             mCursor = contentResolver.query(songUri , null , null , null  ,null  );
 
-            Log.d(TAG_CURSOR , String.valueOf(mCursor.moveToFirst()));
             if(mCursor != null && mCursor.moveToFirst()) {
-                Log.d(TAG_CURSOR , "cursor after here");
                 int songTitle = mCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
                 int songArtist = mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
                 int songAlbum = mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
@@ -57,7 +55,6 @@ public class SongLab {
                     song.setAlbumName(mCursor.getString(songAlbum));
                     song.setUriAlbumPhoto(setSongCover(mCursor.getLong(songAlbumID)));
                     mSongArrayList.add(song);
-                    Log.i(TAG_SONG_LIST , mSongArrayList.size() + "");
                     mCursor.moveToNext();
                 } while (mCursor.moveToNext());
                 generateArtistList();
@@ -84,9 +81,7 @@ public class SongLab {
                     artist.setArtsitName(mCursor.getString(artistColumn));
                     artist.setUriSongCover(setArtistCover(mCursor.getLong(songAlbumID)));
                     artist.setArtistId(mCursor.getLong(artistID));
-                    Log.d(TAG_CATCH_ERROR , "is here before if");
                     if(!repeatedInArtistList(artist)){
-                        Log.d(TAG_CATCH_ERROR , "is here afer if");
                         mArtistArrayList.add(artist);
                     }
                 }while (mCursor.moveToNext());

@@ -4,13 +4,26 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.hossein.tmusic.R;
+import com.example.hossein.tmusic.model.Album;
+import com.example.hossein.tmusic.model.AlbumLab;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,10 +33,23 @@ import com.example.hossein.tmusic.R;
  */
 public class MusicAlbumList extends Fragment {
 
+    private static final String TAG_DEBUG_LIST = "<<debug>>";
+    private static final String TAG_DEBUG_ALBUM_LIST = "<<albumlistdebug>>";
     private OnFragmentInteractionListener mListener;
+    private RecyclerView mRecyclerViewAlbumList;
+    private ArrayList<Album> mAlbumArrayList;
 
     public MusicAlbumList() {
         // Required empty public constructor
+    }
+
+    public static MusicAlbumList newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        MusicAlbumList fragment = new MusicAlbumList();
+        fragment.setArguments(args);
+        return fragment;
     }
 
 
@@ -33,6 +59,12 @@ public class MusicAlbumList extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_music_album_list, container, false);
 
+        mAlbumArrayList = AlbumLab.getInstance().getAlbumList(getActivity());
+        mRecyclerViewAlbumList = view.findViewById(R.id.recycler_view_album_list);
+        mRecyclerViewAlbumList.setLayoutManager(new GridLayoutManager(getActivity() , 2));
+        mAlbumArrayList = AlbumLab.getInstance().getAlbumList(getActivity());
+        Log.d(TAG_DEBUG_ALBUM_LIST , mAlbumArrayList.size() +"");
+        mRecyclerViewAlbumList.setAdapter(new AlbumListRecyclerAdapter(mAlbumArrayList));
         return view;
     }
 
@@ -73,5 +105,66 @@ public class MusicAlbumList extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    private class AlbumRecyclerViewHolder extends RecyclerView.ViewHolder{
+
+        private ImageView mImageView;
+        private TextView mTextViewAlbumTitle;
+        private TextView mTextViewAlbumArtist;
+        public AlbumRecyclerViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mImageView = itemView.findViewById(R.id.img_album_cover);
+            mTextViewAlbumTitle = itemView.findViewById(R.id.tv_album_title);
+            mTextViewAlbumArtist = itemView.findViewById(R.id.tv_album_artist);
+        }
+
+        public void bind(Album album) {
+            mTextViewAlbumTitle.setText(album.getAlbumTitle());
+            mTextViewAlbumArtist.setText(album.getAlbumArtsit());
+            try {
+                if(album.getAlbumCoverUri() != null)
+                    Picasso.get().load(album.getAlbumCoverUri()).centerCrop()
+                            .resize(100 , 100)
+                            .placeholder(R.drawable.music_deffault_icon)
+                            .into(mImageView);
+                else {
+                    Picasso.get().load(R.drawable.ic_launcher_background)
+                            .resize(100 , 100)
+                            .into(mImageView);
+                }
+            }catch (Exception e){
+                Log.i(TAG_DEBUG_LIST , e.getMessage());
+            }
+        }
+    }
+
+    private class AlbumListRecyclerAdapter extends RecyclerView.Adapter<AlbumRecyclerViewHolder>{
+
+        private ArrayList<Album> mAlbumArrayList;
+
+        public AlbumListRecyclerAdapter(ArrayList<Album> albumArrayList) {
+            mAlbumArrayList = albumArrayList;
+        }
+
+        @NonNull
+        @Override
+        public AlbumRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.album_list_model , parent , false);
+            AlbumRecyclerViewHolder albumRecyclerViewHolder = new AlbumRecyclerViewHolder(view);
+            return albumRecyclerViewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull AlbumRecyclerViewHolder holder, int position) {
+            holder.bind(mAlbumArrayList.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return mAlbumArrayList.size();
+        }
     }
 }

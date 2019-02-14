@@ -122,6 +122,7 @@ public class ArtistListFragment extends Fragment {
                 if(artist.getUriSongCover() != null)
                     Picasso.get().load(artist.getUriSongCover()).centerCrop()
                             .resize(200 , 200)
+                            .placeholder(R.drawable.music_deffault_icon)
                             .into(mImageViewArtistCaver);
                 else {
                     Picasso.get().load(R.drawable.ic_launcher_background).into(mImageViewArtistCaver);

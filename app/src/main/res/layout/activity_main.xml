@@ -12,10 +12,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="11"
         android:layout_height="0dp"
+        android:layout_weight="12"
         android:orientation="vertical"
-        android:weightSum="14">
+        android:weightSum="22">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/music_list_tab_layout"
@@ -44,13 +44,13 @@
             android:id="@+id/music_list_view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="12"></androidx.viewpager.widget.ViewPager>
+            android:layout_weight="20"></androidx.viewpager.widget.ViewPager>
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/container_played_music"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2" />
+        android:layout_weight="1" />
 
 </LinearLayout>
