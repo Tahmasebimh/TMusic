@@ -21,6 +21,7 @@ public class SongLab {
     private Cursor mCursor;
     private ArrayList<Song> mSongArrayList;
     private ArrayList<Artist> mArtistArrayList;
+    private ArrayList<Song> mAlbumSongList;
 
     private static final SongLab ourInstance = new SongLab();
     public static SongLab getInstance() {
@@ -54,8 +55,8 @@ public class SongLab {
                     song.setArtist(mCursor.getString(songArtist));
                     song.setAlbumName(mCursor.getString(songAlbum));
                     song.setUriAlbumPhoto(setSongCover(mCursor.getLong(songAlbumID)));
+                    song.setAlbumId(mCursor.getLong(songAlbumID));
                     mSongArrayList.add(song);
-                    mCursor.moveToNext();
                 } while (mCursor.moveToNext());
                 generateArtistList();
                 return mSongArrayList;
@@ -113,5 +114,18 @@ public class SongLab {
         return mArtistArrayList;
     }
 
+    public ArrayList<Song> getAlbumSongList (Long albumId){
+
+        mAlbumSongList = new ArrayList<>();
+        Log.d(TAG_SONG_LIST , albumId.toString());
+        for (Song song : mSongArrayList){
+            Log.d(TAG_SONG_LIST , song.getAlbumId().toString() + "song album id");
+            if (song.getAlbumId().equals(albumId)){
+                mAlbumSongList.add(song);
+            }
+        }
+        Log.d(TAG_SONG_LIST , mAlbumSongList.size() + "");
+        return mAlbumSongList;
+    }
 
 }

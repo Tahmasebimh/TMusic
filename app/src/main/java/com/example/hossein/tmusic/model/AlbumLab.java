@@ -33,14 +33,12 @@ public class AlbumLab {
             ContentResolver contentResolver = activity.getContentResolver();
             Uri uri = MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI;
             mCursor = contentResolver.query(uri , null , null , null ,null);
-            Log.d(TAG_ALBUM_LAB_ERROR , String.valueOf(mCursor == null));
             if(mCursor != null && mCursor.moveToFirst()){
                 int albumTitleColumnIndex = mCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM);
                 int albumArtistColumnIndex = mCursor.getColumnIndex(MediaStore.Audio.Albums.ARTIST);
                 int albumIdcolumnIndex = mCursor.getColumnIndex(MediaStore.Audio.Albums._ID);
 
                 do {
-                    Log.i("<<<>>>><<<>>" , mCursor.getString(albumTitleColumnIndex));
                     Album album = new Album();
                     album.setAlbumID(mCursor.getLong(albumIdcolumnIndex));
                     album.setAlbumTitle(mCursor.getString(albumTitleColumnIndex));

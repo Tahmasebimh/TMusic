@@ -30,7 +30,7 @@ public abstract class MusicListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_music_list, container, false);
         ArrayList<Song> songArrayList = getSongList();
-        Log.d(TAG_DEBUG_LIST , songArrayList.size() + "");
+
 
         mRecyclerViewMusicList = view.findViewById(R.id.recycler_view_music_list);
         mRecyclerViewMusicList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -56,7 +56,7 @@ public abstract class MusicListFragment extends Fragment {
             mTextViewSongTitle.setText(song.getTitle());
             mTextViewSongAlbumName.setText(song.getAlbumName());
             try {
-                Log.d(TAG_DEBUG_LIST , song.getTitle() + song.getUriAlbumPhoto().toString());
+
                 if(song.getUriAlbumPhoto() != null)
                     Picasso.get().load(song.getUriAlbumPhoto()).centerCrop()
                             .resize(200 , 200)

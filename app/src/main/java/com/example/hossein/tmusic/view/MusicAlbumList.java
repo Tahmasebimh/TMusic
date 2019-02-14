@@ -1,6 +1,7 @@
 package com.example.hossein.tmusic.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hossein.tmusic.AlbumDetailActivity;
 import com.example.hossein.tmusic.R;
 import com.example.hossein.tmusic.model.Album;
 import com.example.hossein.tmusic.model.AlbumLab;
@@ -63,7 +65,6 @@ public class MusicAlbumList extends Fragment {
         mRecyclerViewAlbumList = view.findViewById(R.id.recycler_view_album_list);
         mRecyclerViewAlbumList.setLayoutManager(new GridLayoutManager(getActivity() , 2));
         mAlbumArrayList = AlbumLab.getInstance().getAlbumList(getActivity());
-        Log.d(TAG_DEBUG_ALBUM_LIST , mAlbumArrayList.size() +"");
         mRecyclerViewAlbumList.setAdapter(new AlbumListRecyclerAdapter(mAlbumArrayList));
         return view;
     }
@@ -118,6 +119,15 @@ public class MusicAlbumList extends Fragment {
             mImageView = itemView.findViewById(R.id.img_album_cover);
             mTextViewAlbumTitle = itemView.findViewById(R.id.tv_album_title);
             mTextViewAlbumArtist = itemView.findViewById(R.id.tv_album_artist);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Long albumId = mAlbumArrayList.get(getAdapterPosition()).getAlbumID();
+                    Intent intent = AlbumDetailActivity.newIntent(albumId , getActivity());
+                    startActivity(intent);
+                }
+            });
         }
 
         public void bind(Album album) {
@@ -126,7 +136,7 @@ public class MusicAlbumList extends Fragment {
             try {
                 if(album.getAlbumCoverUri() != null)
                     Picasso.get().load(album.getAlbumCoverUri()).centerCrop()
-                            .resize(100 , 100)
+                            .resize(mImageView.getWidth() , mImageView.getHeight())
                             .placeholder(R.drawable.music_deffault_icon)
                             .into(mImageView);
                 else {
