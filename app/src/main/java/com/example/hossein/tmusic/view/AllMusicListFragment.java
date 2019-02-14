@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.hossein.tmusic.R;
 import com.example.hossein.tmusic.model.Song;
+import com.example.hossein.tmusic.model.SongLab;
 import com.squareup.picasso.Picasso;
 
 
@@ -36,7 +37,7 @@ import java.util.ArrayList;
  */
 public class AllMusicListFragment extends Fragment {
 
-    private static final String TAG_DEBUG_LIST = "<> ListSize <>";
+    private static final String TAG_DEBUG_LIST = "<>ListSize<>";
     private OnFragmentInteractionListener mListener;
 
     public AllMusicListFragment() {
@@ -59,7 +60,7 @@ public class AllMusicListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_music_list, container, false);
-        ArrayList<Song> songArrayList = getSongList();
+        ArrayList<Song> songArrayList = SongLab.getInstance().getSongList(getActivity());
         Log.d(TAG_DEBUG_LIST , songArrayList.size() + "");
 
         mRecyclerViewAllMusic = view.findViewById(R.id.recycler_view_music_list);
@@ -69,37 +70,11 @@ public class AllMusicListFragment extends Fragment {
         return view;
     }
 
-    private void upDateUi(){
+    private void updateUI(){
 
     }
 
-    private ArrayList<Song> getSongList() {
-        ArrayList<Song> songArrayList = new ArrayList<>();
-        ContentResolver contentResolver =  getActivity().getContentResolver();
-        Uri songUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        Cursor cursor = contentResolver.query(songUri , null , null , null  ,null );
-        if(cursor != null && cursor.moveToFirst()){
-            int songTitle = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
-            int songArtist = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
-            int songAlbum = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
-            int songAlbumID = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID);
-            do {
-                Song song = new Song();
-                song.setTitle(cursor.getString(songTitle));
-                song.setArtist(cursor.getString(songArtist));
-                song.setAlbumName(cursor.getString(songAlbum));
-                setSongCover(song , cursor.getLong(songAlbumID));
-                songArrayList.add(song);
-            }while (cursor.moveToNext());
-        }
-        cursor.close();
-        return songArrayList;
-    }
 
-    private void setSongCover(Song song, long anInt) {
-        Uri uri = ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), anInt);
-        song.setUriAlbumPhoto(uri);
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -137,6 +112,11 @@ public class AllMusicListFragment extends Fragment {
             mTextViewSongTitle = itemView.findViewById(R.id.tv_music_name);
             mTextViewSongAlbumName = itemView.findViewById(R.id.tv_music_album_name);
             mImageViewSongCover = itemView.findViewById(R.id.img_view_song_cover);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                }
+            });
         }
 
         public void onBind (Song song){

@@ -2,8 +2,6 @@ package com.example.hossein.tmusic.model;
 
 import android.net.Uri;
 
-import java.nio.file.Path;
-
 public class Song {
     private int id;
     private String title;
