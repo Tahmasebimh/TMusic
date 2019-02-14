@@ -3,12 +3,14 @@ package com.example.hossein.tmusic.view;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hossein.tmusic.AlbumArtistDetailActivity;
 import com.example.hossein.tmusic.R;
 import com.example.hossein.tmusic.model.Artist;
 import com.example.hossein.tmusic.model.Song;
@@ -57,6 +60,7 @@ public class ArtistListFragment extends Fragment {
     }
 
     private RecyclerView mRecyclerViewMusicList;
+    private ArrayList<Artist> artistArrayList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,8 +70,9 @@ public class ArtistListFragment extends Fragment {
 
         mRecyclerViewMusicList = view.findViewById(R.id.recycler_view_artist_list);
         mRecyclerViewMusicList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerViewMusicList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
 
-        ArrayList<Artist> artistArrayList = SongLab.getInstance().getArtistList(getActivity());
+        artistArrayList = SongLab.getInstance().getArtistList(getActivity());
         Log.d(TAG_DEBUG_ARTIST_LIST , artistArrayList.size() + "");
         mRecyclerViewMusicList.setAdapter(new ArtistListAdapter(artistArrayList));
 
@@ -113,6 +118,15 @@ public class ArtistListFragment extends Fragment {
             mTextViewArtistName = itemView.findViewById(R.id.tv_music_name);
             mTextViewMusicName = itemView.findViewById(R.id.tv_music_album_name);
             mImageViewArtistCaver = itemView.findViewById(R.id.img_view_song_cover);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = AlbumArtistDetailActivity.newIntent(artistArrayList.get(getAdapterPosition()).getArtistId() ,
+                            getActivity() , AlbumArtistDetailActivity.DETAIL_ARTIST);
+                    startActivity(intent);
+                }
+            });
         }
 
         public void bind(Artist artist) {

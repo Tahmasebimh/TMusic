@@ -22,7 +22,7 @@ public class SongLab {
     private ArrayList<Song> mSongArrayList;
     private ArrayList<Artist> mArtistArrayList;
     private ArrayList<Song> mAlbumSongList;
-
+    private ArrayList<Song> mArtistSongs;
     private static final SongLab ourInstance = new SongLab();
     public static SongLab getInstance() {
         return ourInstance;
@@ -38,7 +38,6 @@ public class SongLab {
     public ArrayList<Song> getSongList(Activity activity) {
         mSongArrayList = new ArrayList<>();
         mArtistArrayList = new ArrayList<>();
-
         try {
             ContentResolver contentResolver =  activity.getContentResolver();
             Uri songUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -49,6 +48,7 @@ public class SongLab {
                 int songArtist = mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
                 int songAlbum = mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
                 int songAlbumID = mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID);
+                int songArtistId = mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID);
                 do {
                     Song song = new Song();
                     song.setTitle(mCursor.getString(songTitle));
@@ -56,6 +56,7 @@ public class SongLab {
                     song.setAlbumName(mCursor.getString(songAlbum));
                     song.setUriAlbumPhoto(setSongCover(mCursor.getLong(songAlbumID)));
                     song.setAlbumId(mCursor.getLong(songAlbumID));
+                    song.setArtistId(mCursor.getLong(songArtistId));
                     mSongArrayList.add(song);
                 } while (mCursor.moveToNext());
                 generateArtistList();
@@ -126,6 +127,16 @@ public class SongLab {
         }
         Log.d(TAG_SONG_LIST , mAlbumSongList.size() + "");
         return mAlbumSongList;
+    }
+
+    public ArrayList<Song> getArtistSong(Long artistId){
+        mArtistSongs = new ArrayList<>();
+        for (Song song : mSongArrayList){
+            if (song.getArtistId().equals(artistId)){
+                mArtistSongs.add(song);
+            }
+        }
+        return mArtistSongs;
     }
 
 }

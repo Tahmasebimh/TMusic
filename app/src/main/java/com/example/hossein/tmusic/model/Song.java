@@ -9,6 +9,7 @@ public class Song {
     private String  albumName;
     private Uri mUriAlbumPhoto;
     private Long albumId;
+    private Long artistId;
 
     public int getId() {
         return id;
@@ -56,5 +57,13 @@ public class Song {
 
     public void setAlbumId(Long albumId) {
         this.albumId = albumId;
+    }
+
+    public Long getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(Long artistId) {
+        this.artistId = artistId;
     }
 }

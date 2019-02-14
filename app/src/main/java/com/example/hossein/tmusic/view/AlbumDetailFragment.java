@@ -5,7 +5,9 @@ import android.graphics.Point;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +40,7 @@ public class AlbumDetailFragment extends Fragment {
     private TextView mTextViewArtistName;
     private ArrayList<Song> mAlbumSongs;
     private Long mAlbumId;
+    private LinearLayout mLinearLayout;
 
     public AlbumDetailFragment() {
         // Required empty public constructor
@@ -81,6 +85,7 @@ public class AlbumDetailFragment extends Fragment {
 
         mRecyclerViewAlbumDetailList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerViewAlbumDetailList.setAdapter(new AlbumSongsListAdapter(mAlbumSongs));
+        mRecyclerViewAlbumDetailList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         return view;
     }
 
@@ -89,19 +94,24 @@ public class AlbumDetailFragment extends Fragment {
         private TextView mTextViewMusicTitle;
         private TextView mTextViewMusicArtistName;
         private ImageView mImageView;
-
+        private ConstraintLayout mConstraintLayoutRoot;
 
         public AlbumSongsListViewHolder(@NonNull View itemView) {
             super(itemView);
             mTextViewMusicTitle = itemView.findViewById(R.id.tv_music_name);
             mTextViewMusicArtistName = itemView.findViewById(R.id.tv_music_album_name);
             mImageView = itemView.findViewById(R.id.img_view_song_cover);
+            mConstraintLayoutRoot = itemView.findViewById(R.id.music_model_root);
 
-            mImageView.setVisibility(View.GONE);
             mTextViewMusicArtistName.setVisibility(View.GONE);
+
         }
 
         public void bind(Song song) {
+            Picasso.get().load(song.getUriAlbumPhoto())
+                    .resize(200 , 200)
+                    .centerCrop()
+                    .into(mImageView);
             mTextViewMusicTitle.setText(song.getTitle());
         }
     }
@@ -139,6 +149,7 @@ public class AlbumDetailFragment extends Fragment {
         mTextViewAlbumName = view.findViewById(R.id.tv_detail_album_name);
         mTextViewArtistName = view.findViewById(R.id.tv_detail_artist_name);
         mRecyclerViewAlbumDetailList = view.findViewById(R.id.recycler_view_album_detail);
+        mLinearLayout = view.findViewById(R.id.linear_album_detail_root);
     }
 
 }

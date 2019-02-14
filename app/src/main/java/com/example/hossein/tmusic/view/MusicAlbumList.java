@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,13 +18,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.hossein.tmusic.AlbumDetailActivity;
+import com.example.hossein.tmusic.AlbumArtistDetailActivity;
 import com.example.hossein.tmusic.R;
 import com.example.hossein.tmusic.model.Album;
 import com.example.hossein.tmusic.model.AlbumLab;
+import com.example.hossein.tmusic.utils.ItemDecorationAlbumColumns;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -66,6 +66,7 @@ public class MusicAlbumList extends Fragment {
         mRecyclerViewAlbumList.setLayoutManager(new GridLayoutManager(getActivity() , 2));
         mAlbumArrayList = AlbumLab.getInstance().getAlbumList(getActivity());
         mRecyclerViewAlbumList.setAdapter(new AlbumListRecyclerAdapter(mAlbumArrayList));
+
         return view;
     }
 
@@ -124,7 +125,7 @@ public class MusicAlbumList extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Long albumId = mAlbumArrayList.get(getAdapterPosition()).getAlbumID();
-                    Intent intent = AlbumDetailActivity.newIntent(albumId , getActivity());
+                    Intent intent = AlbumArtistDetailActivity.newIntent(albumId , getActivity() , AlbumArtistDetailActivity.DETAIL_ALBUM);
                     startActivity(intent);
                 }
             });
