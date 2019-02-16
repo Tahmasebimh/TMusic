@@ -146,8 +146,8 @@ public class PlayMusicFragment extends Fragment {
                 }
             }
         });
-        // mIndicatorSeekBar.setIndicatorTextFormat("${PROGRESS} %");
-        mIndicatorSeekBar.setIndicatorTextFormat("${TICK_TEXT} ==");
+        mIndicatorSeekBar.setIndicatorTextFormat("${PROGRESS} %");
+       // mIndicatorSeekBar.setIndicatorTextFormat("${TICK_TEXT} ==");
         mIndicatorSeekBar.setOnSeekChangeListener(new OnSeekChangeListener() {
             @Override
             public void onSeeking(SeekParams seekParams) {
