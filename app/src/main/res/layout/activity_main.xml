@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
     android:weightSum="13"
     tools:context=".view.MusicListPagerActivity">
 
@@ -19,9 +18,13 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/music_list_tab_layout"
+            style="@style/Widget.Design.TabLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            app:tabIndicatorColor="@color/colorComponent"
+
+            app:tabSelectedTextColor="#000000">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

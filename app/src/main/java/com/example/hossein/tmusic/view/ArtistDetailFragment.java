@@ -1,6 +1,7 @@
 package com.example.hossein.tmusic.view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hossein.tmusic.PlayMusicActivity;
+import com.example.hossein.tmusic.PlayMusicFragment;
 import com.example.hossein.tmusic.R;
 import com.example.hossein.tmusic.model.Song;
 import com.example.hossein.tmusic.model.SongLab;
@@ -87,6 +90,18 @@ public class ArtistDetailFragment extends Fragment {
             mTextViewSongName = itemView.findViewById(R.id.tv_music_name);
             mTextViewSongAlbumName = itemView.findViewById(R.id.tv_music_album_name);
             mImageViewSnogAlbumCover = itemView.findViewById(R.id.img_view_song_cover);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long songId = mArtistSongs.get(getAdapterPosition()).getId();
+                    long albumId = mArtistSongs.get(getAdapterPosition()).getAlbumId();
+                    long artistId = mArtistSongs.get(getAdapterPosition()).getArtistId();
+                    Intent intent = PlayMusicActivity.newIntent(getActivity() , PlayMusicFragment.ARTIST_MUSIC_KIND
+                            ,songId , artistId , albumId , getAdapterPosition());
+                    startActivity(intent);
+                }
+            });
         }
 
         public void bind(Song song) {

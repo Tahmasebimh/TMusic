@@ -22,6 +22,7 @@ import com.example.hossein.tmusic.AlbumArtistDetailActivity;
 import com.example.hossein.tmusic.R;
 import com.example.hossein.tmusic.model.Album;
 import com.example.hossein.tmusic.model.AlbumLab;
+import com.example.hossein.tmusic.model.SongLab;
 import com.example.hossein.tmusic.utils.ItemDecorationAlbumColumns;
 import com.squareup.picasso.Picasso;
 
@@ -141,7 +142,9 @@ public class MusicAlbumList extends Fragment {
                 Log.i(TAG_DEBUG_LIST , e.getMessage());
             }
             mTextViewAlbumTitle.setText(album.getAlbumTitle());
-            mTextViewAlbumArtist.setText(album.getAlbumArtsit());
+            mTextViewAlbumArtist.setText(album.getAlbumArtsit()
+                    + "  (" + SongLab.getInstance().getAlbumSongsCount(album.getAlbumID())
+                    + ") ");
         }
     }
 

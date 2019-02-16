@@ -44,19 +44,23 @@ public class SongLab {
             mCursor = contentResolver.query(songUri , null , null , null  ,null  );
 
             if(mCursor != null && mCursor.moveToFirst()) {
+                int songId = mCursor.getColumnIndex(MediaStore.Audio.Media._ID);
                 int songTitle = mCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
                 int songArtist = mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
                 int songAlbum = mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
                 int songAlbumID = mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID);
                 int songArtistId = mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID);
+                int songPathColumnIndex = mCursor.getColumnIndex(MediaStore.Audio.Media.DATA);
                 do {
                     Song song = new Song();
+                    song.setId(mCursor.getLong(songId));
                     song.setTitle(mCursor.getString(songTitle));
                     song.setArtist(mCursor.getString(songArtist));
                     song.setAlbumName(mCursor.getString(songAlbum));
                     song.setUriAlbumPhoto(setSongCover(mCursor.getLong(songAlbumID)));
                     song.setAlbumId(mCursor.getLong(songAlbumID));
                     song.setArtistId(mCursor.getLong(songArtistId));
+                    song.setPath(mCursor.getString(songPathColumnIndex));
                     mSongArrayList.add(song);
                 } while (mCursor.moveToNext());
                 generateArtistList();
@@ -68,6 +72,15 @@ public class SongLab {
             mCursor.close();
         }
         return mSongArrayList;
+    }
+
+    public ArrayList<Song> getAllSongsList(Activity activity){
+        if(mSongArrayList.size() > 0 ){
+            return mSongArrayList;
+        }else{
+            getSongList(activity);
+            return mSongArrayList;
+        }
     }
 
     private void generateArtistList() {
@@ -146,5 +159,15 @@ public class SongLab {
     public int getArtistSongsCount(Long artistId){
         ArrayList<Song> songs = getArtistSong(artistId);
         return songs.size();
+    }
+
+    public int getAlbumSongsCount(long albumId){
+        int counter = 0;
+        for (Song song : mSongArrayList){
+            if(song.getAlbumId().equals(albumId)){
+                counter++;
+            }
+        }
+        return counter;
     }
 }

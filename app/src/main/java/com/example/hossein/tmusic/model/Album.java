@@ -9,6 +9,7 @@ public class Album {
     private String AlbumArtsit;
     private Uri AlbumCoverUri;
 
+
     public Long getAlbumID() {
         return albumID;
     }
@@ -40,4 +41,6 @@ public class Album {
     public void setAlbumCoverUri(Uri albumCoverUri) {
         AlbumCoverUri = albumCoverUri;
     }
+
+
 }

@@ -3,19 +3,20 @@ package com.example.hossein.tmusic.model;
 import android.net.Uri;
 
 public class Song {
-    private int id;
+    private Long id;
     private String title;
     private String artist;
     private String  albumName;
     private Uri mUriAlbumPhoto;
     private Long albumId;
     private Long artistId;
+    private String mPath;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,5 +66,13 @@ public class Song {
 
     public void setArtistId(Long artistId) {
         this.artistId = artistId;
+    }
+
+    public String getPath() {
+        return mPath;
+    }
+
+    public void setPath(String path) {
+        mPath = path;
     }
 }

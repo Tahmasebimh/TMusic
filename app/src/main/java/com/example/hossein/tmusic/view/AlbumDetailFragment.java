@@ -1,6 +1,7 @@
 package com.example.hossein.tmusic.view;
 
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 
@@ -20,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hossein.tmusic.PlayMusicActivity;
+import com.example.hossein.tmusic.PlayMusicFragment;
 import com.example.hossein.tmusic.R;
 import com.example.hossein.tmusic.model.Song;
 import com.example.hossein.tmusic.model.SongLab;
@@ -102,14 +105,26 @@ public class AlbumDetailFragment extends Fragment {
             mTextViewMusicArtistName = itemView.findViewById(R.id.tv_music_album_name);
             mImageView = itemView.findViewById(R.id.img_view_song_cover);
             mConstraintLayoutRoot = itemView.findViewById(R.id.music_model_root);
-
             mTextViewMusicArtistName.setVisibility(View.GONE);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long songId = mAlbumSongs.get(getAdapterPosition()).getId();
+                    long albumId = mAlbumSongs.get(getAdapterPosition()).getAlbumId();
+                    long artistId = mAlbumSongs.get(getAdapterPosition()).getArtistId();
+                    Intent intent = PlayMusicActivity.newIntent(getActivity() , PlayMusicFragment.ALBUM_MUSIC_KIND
+                            ,songId , artistId , albumId , getAdapterPosition());
+                    startActivity(intent);
+                }
+            });
 
         }
 
         public void bind(Song song) {
             Picasso.get().load(song.getUriAlbumPhoto())
                     .resize(200 , 200)
+                    .placeholder(R.drawable.music_deffault_icon)
                     .centerCrop()
                     .into(mImageView);
             mTextViewMusicTitle.setText(song.getTitle());

@@ -37,6 +37,7 @@ public class AlbumLab {
                 int albumTitleColumnIndex = mCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM);
                 int albumArtistColumnIndex = mCursor.getColumnIndex(MediaStore.Audio.Albums.ARTIST);
                 int albumIdcolumnIndex = mCursor.getColumnIndex(MediaStore.Audio.Albums._ID);
+                int albumCountColumnIndex = mCursor.getColumnIndex(MediaStore.Audio.Media._COUNT);
 
                 do {
                     Album album = new Album();
@@ -44,6 +45,7 @@ public class AlbumLab {
                     album.setAlbumTitle(mCursor.getString(albumTitleColumnIndex));
                     album.setAlbumArtsit(mCursor.getString(albumArtistColumnIndex));
                     album.setAlbumCoverUri(setSongCover(mCursor.getLong(albumIdcolumnIndex)));
+                    //album.setAlbumSongCount(mCursor.getInt(albumCountColumnIndex));
 
                    // if(!isRepeatedInAlbumList(album)){
                         mAlbumArrayList.add(album);
