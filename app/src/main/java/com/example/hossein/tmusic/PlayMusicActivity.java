@@ -46,22 +46,17 @@ public class PlayMusicActivity extends AppCompatActivity {
         long artistId = bundle.getLong(KEY_ARTIST_ID);
         int position = bundle.getInt(KEY_SONG_POSITION);
 
-        fragmentManager.beginTransaction().replace(R.id.frm_layout_root_play_music ,
-                PlayMusicFragment.newInstance(kindAlbum, songId ,artistId , albumId , position )).commit();
-//        switch (kindAlbum){
-//            case ALL_MUSIC_KIND :{
-//
-//                break;
-//            }case ARTIST_MUSIC_KIND :{
-//                fragmentManager.beginTransaction().replace(R.id.frm_layout_root_play_music ,
-//                        PlayMusicFragment.newInstance(ARTIST_MUSIC_KIND, songId ,artistId , albumId , position )).commit();
-//                break;
-//            }case ALBUM_MUSIC_KIND :{
-//                fragmentManager.beginTransaction().replace(R.id.frm_layout_root_play_music ,
-//                        PlayMusicFragment.newInstance(ALBUM_MUSIC_KIND, songId ,artistId , albumId , position )).commit();
-//                break;
-//            }default:
-//                finish();
-//        }
+
+        if(findViewById(R.id.frm_layout_root_play_music) != null){
+            if(savedInstanceState != null){
+
+            }else {
+                fragmentManager.beginTransaction().replace(R.id.frm_layout_root_play_music ,
+                        PlayMusicFragment.newInstance(kindAlbum, songId ,artistId , albumId , position )).commit();
+            }
+        }else{
+            fragmentManager.beginTransaction().replace(R.id.frm_layout_root_play_music ,
+                    PlayMusicFragment.newInstance(kindAlbum, songId ,artistId , albumId , position )).commit();
+        }
     }
 }

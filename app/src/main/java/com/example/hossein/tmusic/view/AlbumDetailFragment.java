@@ -6,7 +6,6 @@ import android.graphics.Point;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +25,7 @@ import com.example.hossein.tmusic.PlayMusicFragment;
 import com.example.hossein.tmusic.R;
 import com.example.hossein.tmusic.model.Song;
 import com.example.hossein.tmusic.model.SongLab;
+import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -97,14 +97,14 @@ public class AlbumDetailFragment extends Fragment {
         private TextView mTextViewMusicTitle;
         private TextView mTextViewMusicArtistName;
         private ImageView mImageView;
-        private ConstraintLayout mConstraintLayoutRoot;
+        private MaterialCardView mMaterialCardView;
 
         public AlbumSongsListViewHolder(@NonNull View itemView) {
             super(itemView);
             mTextViewMusicTitle = itemView.findViewById(R.id.tv_music_name);
             mTextViewMusicArtistName = itemView.findViewById(R.id.tv_music_album_name);
             mImageView = itemView.findViewById(R.id.img_view_song_cover);
-            mConstraintLayoutRoot = itemView.findViewById(R.id.music_model_root);
+            mMaterialCardView = itemView.findViewById(R.id.music_model_root);
             mTextViewMusicArtistName.setVisibility(View.GONE);
 
             itemView.setOnClickListener(new View.OnClickListener() {

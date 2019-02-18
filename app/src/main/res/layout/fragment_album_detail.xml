@@ -6,11 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
     android:orientation="vertical"
-    tools:context=".view.AlbumDetailFragment">
+    tools:context=".view.AlbumDetailFragment"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        >
 
         <ImageView
             android:id="@+id/img_detail_album_cover"
@@ -56,6 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@color/colorPrimaryLight" />
+        android:background="@color/colorPrimaryLight"
+        />
 
 </LinearLayout>

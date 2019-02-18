@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -72,6 +73,7 @@ public class AllMusicListFragment extends Fragment {
         mRecyclerViewAllMusic = view.findViewById(R.id.recycler_view_music_list);
         mRecyclerViewAllMusic.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerViewAllMusic.setAdapter(new AllMusicListAdapter(mSongArrayList));
+        mRecyclerViewAllMusic.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
 
         return view;
     }
